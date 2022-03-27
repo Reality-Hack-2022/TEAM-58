@@ -10,6 +10,7 @@ using TMPro;
 public class NetworkPlayer : MonoBehaviourPun
 {
     [SerializeField] private Transform head;
+    [SerializeField] private MeshRenderer body;
     [SerializeField] private Transform leftHand;
     [SerializeField] private Transform rightHand;
     [SerializeField] private TextMeshPro playerNameText;
@@ -43,7 +44,7 @@ public class NetworkPlayer : MonoBehaviourPun
     {
         playerNameText.text = this.photonView.Owner.NickName;
         if (photonView.IsMine)
-        {
+        { 
             leftHand.GetChild(0).gameObject.SetActive(false);
             rightHand.GetChild(0).gameObject.SetActive(false);
             localPlayerInstance = this.gameObject;
@@ -53,6 +54,10 @@ public class NetworkPlayer : MonoBehaviourPun
             MapPosition(rightHand, rightHandRig);
             torso.transform.position = new Vector3(headRig.transform.position.x, headRig.transform.position.y - 0.27f,
             headRig.transform.position.z);
+            
+            head.transform.GetChild(0).gameObject.SetActive(false);
+            body.enabled = false;
+
         }
         
     }
